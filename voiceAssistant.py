@@ -24,7 +24,7 @@ TTS_URL = 'http://tsn.baidu.com/text2audio'  # 文字转语音接口
 
 music_exit = './audio/exit.wav'  # 唤醒系统退出语音
 music_open = './audio/open.wav'  # 唤醒系统打开语音
-os.close(sys.stderr.fileno())
+# os.close(sys.stderr.fileno())
 
 
 def signal_handler(signal, frame):
@@ -151,23 +151,29 @@ def identifyComplete(text):
     """
     print('识别内容成功，内容为:' + text)
     maps = {
-        '打开百度': ['打开百度。', '打开百度', '打开百度，', 'baidu']
+        '打开百度': ['打开百度。', '打开百度', '打开百度，', 'baidu'],
+        '播放音乐': ['播放音乐。', '播放音乐', '播放音乐，', 'yinyue']
     }
     if (text == '再见。' or text == '拜拜。'):
         play(music_exit)  # 关闭系统播放反馈语音
         exit()
     if text in maps['打开百度']:
         webbrowser.open_new_tab('https://www.baidu.com')
-        play('./audio/openbaidu.wav')  # 识别到播放反馈语音
+        # play('./audio/openbaidu.wav')  # 识别到播放反馈语音
+        print('baidu opened bro!')
+    if text in maps['播放音乐']:
+        play('./audio/LoveYourself.wav')
+        print('music played bro!')
     else:
         play('./audio/none.wav')  # 未匹配口令播放反馈语音
     print('操作完成')
 
 
 if __name__ == "__main__":
+    print('enter main')
     while endSnow == False:
         interrupted = False
-        detector = snowboydecoder.HotwordDetector('xm.pmdl', sensitivity=0.5)
+        detector = snowboydecoder.HotwordDetector('resources/snowboy.umdl', sensitivity=0.5)
         print('等待唤醒')
         detector.start(detected_callback=detected,
                        interrupt_check=interrupt_callback,
