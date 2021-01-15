@@ -11,6 +11,19 @@ from pyaudio import PyAudio, paInt16
 import webbrowser
 from fetchToken import fetch_token
 
+import sys
+# 打印所有 python 解释器可以搜索到的所有路径
+sys.path.append('../')
+print(sys.path)
+# 导入自定义包
+from plugins.baidu.baiduTopNews import baiduTopNews # 播报百度今日热点事件
+from plugins.weibo.weiboHotTopic import weiboHotTopic # 播报微博热门话题
+from plugins.countdown.countdown import countdown # 播报距离 2021 年考研初试的倒计时
+from plugins.douban.getMoveData import moviceData # 播报豆瓣近一周电影口碑榜
+from plugins.maoyan.getMoveDataMY import moviceDataMY # 播报猫眼今日票房排行榜及正在热映的电影
+from plugins.weather.weatherInfo import weatherInfo # 播报今日或明日天气预报
+from plugins.system.sysinfo import sysinfo # 播报系统信息数据, 如 ip 地址及 cpu 利用率等..
+
 interrupted = False  # snowboy监听唤醒结束标志
 endSnow = False  # 程序结束标志
 
@@ -152,7 +165,16 @@ def identifyComplete(text):
     print('识别内容成功，内容为:' + text)
     maps = {
         '打开百度': ['打开百度。', '打开百度', '打开百度，', 'baidu'],
-        '播放音乐': ['播放音乐。', '播放音乐', '播放音乐，', 'yinyue']
+        '播放音乐': ['播放音乐。', '播放音乐', '播放音乐，', 'yinyue'],
+        '百度热点事件': ['百度热点事件。', '百度热点事件，', '百度热点事件', '百度新闻，', '百度新闻。', '百度新闻'],
+        '微博热门话题': ['微博热门话题。', '微博热门话题，', '微博热门话题', '微博话题，', '微博话题。', '微博话题'],
+        '考研倒计时': ['考研倒计时。', '考研倒计时，', '考研倒计时', '考研，', '考研。', '考研'],
+        '豆瓣电影排行榜': ['豆瓣电影排行榜。', '豆瓣电影排行榜，', '豆瓣电影排行榜', '豆瓣电影，', '豆瓣电影。', '豆瓣电影'],
+        '猫眼电影排行榜': ['猫眼电影排行榜。', '猫眼电影排行榜，', '猫眼电影排行榜'],
+        '猫眼热映电影': ['猫眼热映电影，', '猫眼热映电影。', '猫眼热映电影'],
+        '今日天气预报': ['今日天气预报，', '今日天气预报。', '今日天气预报', '今日天气，', '今日天气。', '今日天气'],
+        '明日天气预报': ['明日天气预报，', '明日天气预报。', '明日天气预报', '明日天气，', '明日天气。', '明日天气'],
+        '系统信息': ['系统信息，', '系统信息。', '系统信息', 'IP地址，', 'IP地址。', 'IP地址'],
     }
     if (text == '再见。' or text == '拜拜。'):
         play(music_exit)  # 关闭系统播放反馈语音
@@ -164,6 +186,24 @@ def identifyComplete(text):
     if text in maps['播放音乐']:
         play('./audio/LoveYourself.wav')
         print('music played bro!')
+    if text in maps['百度热点事件']:
+        baiduTopNews.run()
+    if text in maps['微博热门话题']:
+        weiboHotTopic.run()
+    if text in maps['考研倒计时']:
+        countdown.run()
+    if text in maps['豆瓣电影排行榜']:
+        moviceData.run()
+    if text in maps['猫眼电影排行榜']:
+        moviceDataMY.run_today_movice_ranking()
+    if text in maps['猫眼热映电影']:
+        moviceDataMY.run_movice_ranking()
+    if text in maps['今日天气预报']:
+        weatherInfo.run_today_weather()
+    if text in maps['明日天气预报']:
+        weatherInfo.run_tomorrow_weather()
+    if text in maps['系统信息']:
+        sysinfo.run()
     else:
         play('./audio/none.wav')  # 未匹配口令播放反馈语音
     print('操作完成')
