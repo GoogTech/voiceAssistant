@@ -83,6 +83,15 @@ $ python3.7 setup.py install
 $ python3.7 voiceAssistant.py
 ```
 
+### Problems
+If the program throw a error info such as `[Errno -9985] Device unavailable ...`，Please fix it by the following command !
+```shell
+# install the pulseaudio
+sudo apt-get install pulseaudio
+# start it
+pulseaudio --start
+```
+
 
 ## Speech Sound Plugins
 * [x] Play Music  
