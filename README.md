@@ -1,4 +1,13 @@
 # Voice Assistant Of RasPi
+<p align="center">
+  <a href="https://www.codacy.com/gh/raspberry-pi-org/voiceAssistant/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=raspberry-pi-org/voiceAssistant&amp;utm_campaign=Badge_Grade">
+		  <img src="https://app.codacy.com/project/badge/Grade/1bb91a630b16462fb433b6faac5e8594"/>
+  </a>
+  <img src="https://img.shields.io/github/commit-activity/m/raspberry-pi-org/voiceAssistant?color=ff69b4"></img>
+  <img src="https://img.shields.io/github/repo-size/raspberry-pi-org/voiceAssistant"></img>
+	<img src="https://img.shields.io/github/license/raspberry-pi-org/voiceAssistant.svg"></img>
+</p>
+
 🔊 It's a simple voice assistant which base on `RasPi4B`、`Snowboy` and `Baidu ASR`, Please refer to [`This airticle`](https://www.passerma.com/article/54) if you want to know more detail info about it.
 
 > This Project Forked From : https://github.com/passerma/voiceAssistant Thanks A Lot bro ~
