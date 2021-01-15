@@ -1,6 +1,12 @@
 import sys
 import json
 
+# 打印所有 python 解释器可以搜索到的所有路径
+sys.path.append('../')
+# print(sys.path)
+# 导入自定义包
+from config.apiConfig import *
+
 # 保证兼容python2以及python3
 IS_PY3 = sys.version_info.major == 3
 if IS_PY3:
@@ -18,12 +24,12 @@ else:
     from urllib import urlencode
 
 # 替换你的 API_KEY
-API_KEY = 'XXXXXXXXXXXXXXXXX'
+# API_KEY = ''
 
-# 替换你的 SECRET_KEY
-SECRET_KEY = 'XXXXXXXXXXXXXXXXXXX'
+# # 替换你的 SECRET_KEY
+# SECRET_KEY = ''
 
-TOKEN_URL = 'http://openapi.baidu.com/oauth/2.0/token'
+# TOKEN_URL = 'http://openapi.baidu.com/oauth/2.0/token'
 
 
 def fetch_token():
